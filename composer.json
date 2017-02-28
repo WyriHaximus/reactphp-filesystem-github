@@ -1,0 +1,33 @@
+{
+    "name": "wyrihaximus/react-filesystem-github",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "authors": [
+        {
+            "name": "Cees-Jan Kiewiet",
+            "email": "ceesjank@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.0",
+        "api-clients/github": "dev-master",
+        "react/filesystem": "dev-master"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "WyriHaximus\\React\\Filesystem\\Github\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WyriHaximus\\React\\Tests\\Filesystem\\Github\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
