@@ -120,7 +120,7 @@ final class RepositoryAdapter implements AdapterInterface
     {
         $stream = new ObjectStream();
         $this->loop->futureTick(function () use ($stream, $path) {
-            $this->repository->contents($path)->subscribeCallback(
+            $this->repository->contents($path)->subscribe(
                 function ($node) use ($stream) {
                     if ($node instanceof GithubContentsFile) {
                         $stream->write(new ReactFile($node->path(), $this->filesystem));
