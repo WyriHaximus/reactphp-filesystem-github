@@ -23,7 +23,7 @@ $github->user('php-api-clients')->then(function (User $user) {
     $adapter = new RepositoryAdapter($loop, $options);
     return Filesystem::createFromAdapter($adapter);
 })->then(function (Filesystem $filesystem) {
-    return $filesystem->dir('')->ls();
+    return $filesystem->dir('/')->ls();
 })->done(function ($nodes) {
     foreach ($nodes as $node) {
         echo get_class($node), ': ', $node->getPath(), PHP_EOL;
