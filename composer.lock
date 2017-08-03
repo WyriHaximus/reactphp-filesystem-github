@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3aa02cf546952e1d034dedd82a3a55db",
+    "content-hash": "a429df82e0edc3bdc2ff2a656382453d",
     "packages": [
         {
             "name": "api-clients/client-services",
@@ -2207,16 +2207,16 @@
         },
         {
             "name": "react/filesystem",
-            "version": "dev-master",
+            "version": "v0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/filesystem.git",
-                "reference": "1283176101e349b5a96eefc383809820ad7e5afe"
+                "reference": "53b31f3e3b2d12973f50ab378063c2ad348689ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/filesystem/zipball/1283176101e349b5a96eefc383809820ad7e5afe",
-                "reference": "1283176101e349b5a96eefc383809820ad7e5afe",
+                "url": "https://api.github.com/repos/reactphp/filesystem/zipball/53b31f3e3b2d12973f50ab378063c2ad348689ae",
+                "reference": "53b31f3e3b2d12973f50ab378063c2ad348689ae",
                 "shasum": ""
             },
             "require": {
@@ -2228,11 +2228,11 @@
                 "wyrihaximus/react-child-process-pool": "^1.3"
             },
             "require-dev": {
-                "clue/block-react": "^1.1"
+                "clue/block-react": "^1.1",
+                "phpunit/phpunit": "^6.0 || ^5.0 || ^4.8"
             },
             "suggest": {
-                "ext-eio": "^1.2",
-                "ext-pthreads": "^2.0"
+                "ext-eio": "^1.2"
             },
             "type": "library",
             "autoload": {
@@ -2259,7 +2259,7 @@
                 "eio",
                 "filesystem"
             ],
-            "time": "2016-08-05 05:50:52"
+            "time": "2017-07-17T17:58:55+00:00"
         },
         {
             "name": "react/http-client",
@@ -4599,8 +4599,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "api-clients/github": 20,
-        "react/filesystem": 20
+        "api-clients/github": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
