@@ -8,6 +8,8 @@ use ApiClients\Client\Github\Authentication\Anonymous;
 use ApiClients\Client\Github\Resource\Async\Contents\Directory as GithubContentsDirectory;
 use ApiClients\Client\Github\Resource\Async\Contents\File as GithubContentsFile;
 use ApiClients\Client\Github\Resource\Async\Repository;
+use ApiClients\Client\Github\Resource\Contents\FileInterface;
+use function ApiClients\Foundation\resource_pretty_print;
 use React\EventLoop\LoopInterface;
 use React\Filesystem\AdapterInterface;
 use React\Filesystem\CallInvokerInterface;
@@ -15,8 +17,10 @@ use React\Filesystem\Filesystem;
 use React\Filesystem\FilesystemInterface;
 use React\Filesystem\Node\Directory as ReactDirectory;
 use React\Filesystem\Node\File as ReactFile;
+use React\Filesystem\Node\NodeInterface;
 use React\Filesystem\NotSupportedException;
 use React\Filesystem\ObjectStream;
+use React\Promise\Promise;
 use function React\Promise\reject;
 
 final class RepositoryAdapter implements AdapterInterface
@@ -54,6 +58,11 @@ final class RepositoryAdapter implements AdapterInterface
         $this->repository = $this->options['repository'];
 
         //$this->setUpGithubClient();
+    }
+
+    public static function isSupported()
+    {
+        return true;
     }
 
     private function setUpGithubClient()
@@ -113,7 +122,37 @@ final class RepositoryAdapter implements AdapterInterface
 
     public function stat($filename)
     {
-        // TODO: Implement stat() method.
+        return new Promise(function ($resolve, $reject) use ($filename) {
+            $stat = [];
+            $this->repository->contents($filename)->subscribe(
+                function ($node) use (&$stat) {
+                    $stat[] = [
+                        'type' => $node->type(),
+                        'size' => $node instanceof FileInterface ? $node->size() : null,
+                    ];
+                },
+                $reject,
+                function () use ($resolve, &$stat) {
+                    $count = \count($stat);
+                    if ($count === 0) {
+                        $resolve(false);
+
+                        return;
+                    }
+
+                    if ($count === 1) {
+                        $resolve($stat[0]);
+
+                        return;
+                    }
+
+                    $resolve([
+                        'type' => 'dir',
+                        'size' => null,
+                    ]);
+                }
+            );
+        });
     }
 
     public function ls($path)
@@ -151,7 +190,7 @@ final class RepositoryAdapter implements AdapterInterface
 
     public function read($fileDescriptor, $length, $offset)
     {
-        // TODO: Implement read() method.
+        return reject(new NotSupportedException());
     }
 
     public function write($fileDescriptor, $data, $length, $offset)
@@ -161,7 +200,7 @@ final class RepositoryAdapter implements AdapterInterface
 
     public function close($fd)
     {
-        // TODO: Implement close() method.
+        return reject(new NotSupportedException());
     }
 
     public function rename($fromPath, $toPath)
@@ -181,6 +220,6 @@ final class RepositoryAdapter implements AdapterInterface
 
     public function detectType($path)
     {
-        // TODO: Implement detectType() method.
+        return reject(new NotSupportedException());
     }
 }
